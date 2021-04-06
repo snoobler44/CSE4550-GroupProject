@@ -30,19 +30,20 @@
 </div>
 
 <div class="container">
-  <div>
-        <div class="containerItems"><span style="position: relative; font-size: 22px">Sign Up</span>
-            <p></p>
-            <input type="text" placeholder="Enter Email" name="email" required>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+    <div>
+        <form action="{{ url_for('signup') }}" method="post" autocomplete="off">
+            <input type="email" name="email" placeholder="Email" id="email" required>
+            <input type="password" name="password" placeholder="Password" id="password" required>
             <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-            <div class="clearfix">
-              <button type="submit" class="signupbtn">Sign Up</button>
-            </div>
-            &nbsp;</div>
-        &nbsp;</div>
+            <div class="msg">{{ msg }}</div>
+            <input type="submit" value="Sign Up">
+                &nbsp;
+            </form>
+            &nbsp;
+    </div>
 </div>
+
+
 
 <div class="nav3-container">
   <div class="wrapper">

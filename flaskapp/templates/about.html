@@ -5,36 +5,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Search Results</title>
-  <!--<link rel="stylesheet" href="{{ url_for('static', filename='homepage_style.css') }}" />
-  <link href="{{ url_for('static', filename='bootstrap-4.3.1.css') }}" rel="stylesheet" type="text/css">
-  -->
-  <title> {% block title %}{% endblock %}Results </title>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="{{ url_for('static', filename='bootstrap-4.3.1.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='../static/js/bootstrap-4.3.1.css') }}" rel="stylesheet" type="text/css">
 
 
-  <script src=" {{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
-  <script src=" {{ url_for('static', filename='popper.min.js') }}"></script>
-  <script src=" {{ url_for('static', filename='bootstrap-4.3.1.js') }}"></script>
-  
-  <!--
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <link rel="stylesheet"
-              href= 
-"https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-              integrity= 
-"sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" 
-              crossorigin="anonymous" /> 
-
-    <meta charset="utf-8">-->
+  <script src=" {{ url_for('static', filename='../static/js/jquery-3.3.1.min.js') }}"></script>
+  <script src=" {{ url_for('static', filename='../static/js/popper.min.js') }}"></script>
+  <script src=" {{ url_for('static', filename='../static/js/bootstrap-4.3.1.js') }}"></script>
 
     <title>About Us</title>
-
- <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
 
  <!-- CSS Style -->
  <style>
@@ -171,14 +151,16 @@
     <div>
       <div class="top-header">
         <div class="mx-auto" style="width: 1920;">
-        <img  src=" {{ url_for('static', filename='imgs/top_header.png') }}" class="img-fluid" alt="Responsive image">
+        <!--<img  src=" {{ url_for('static', filename='../static/css/images/top_header.png') }}" class="img-fluid" alt="Responsive image">-->
+        <img src="/static/css/images/top_header.png" class="img-fluid" alt="Responsive image">
         </div>
     </div>
         <nav class="navbar navbar-expand-lg nav-color custom-navbar">
             
             <a class="navbar-brand" href="#" style="max-width: 10%;">
-                <img src="{{ url_for('static', filename='imgs/LemonslimesNOTEXT.png') }}" class="img-fluid">
-                
+                <!--<img src="{{ url_for('static', filename='../static/css/images/LemonslimesNOTEXT.png') }}" class="img-fluid">-->
+                <img src="/static/css/images/LemonslimesNOTEXT.png" class="img-fluid" alt="Responsive image">
+
             </a>
             
             
@@ -199,13 +181,13 @@
                     <a class="nav-link" href="#" style="color: #fbfbfb;">SERVICE</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #fbfbfb;">ABOUT US</a>
+                    <a class="nav-link" href="about" style="color: #fbfbfb;">ABOUT US</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #fbfbfb;">CONTACT US</a>
+                    <a class="nav-link" href="contact" style="color: #fbfbfb;">CONTACT US</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #fbfbfb;">LOGIN/SIGNUP</a>
+                    <a class="nav-link" href="login" style="color: #fbfbfb;">LOGIN/SIGNUP</a>
                   </li>
                 </ul>
                 
@@ -221,46 +203,9 @@
           -->
              
   </div>
-
-  <!--Flexbox Employee Info cards
-
-  <div class="container-fluid card-group-style">
-    <div class="card-header">
-        <img src=" url_for('static', filename='imgs/Temp-Profile-Picture.jpg') }}" alt="">
-    </div>
-    <div class="row">
-      <div class="card-deck">
-        <div class="card">
-          <img class="card-img-top" src="//placehold.it/720x350" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="//placehold.it/720x350" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="//placehold.it/720x350" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  -->
-
   
   <!-- Carosel Wrapper -->
+
   <div id="carouselExampleIndicators" class="carousel slide" style="margin-top: 2%;" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -268,18 +213,21 @@
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="w-100 img-fluid " src="{{ url_for('static', filename='imgs/honda.jpg') }}" alt="First slide">
-        <div class="carousel-content">
-          <p>Employee of the Month</p>
+        <div class="carousel-item active">
+            <!--<img class="w-100 img-fluid " src="{{ url_for('static', filename='../static/css/images/honda.jpg') }}" alt="First slide">-->
+            <img class="w-100 img-fluid " src="../static/css/images/honda.jpg" alt="First slide">
+            <div class="carousel-content">
+                <p>Employee of the Month</p>
+            </div>
         </div>
-      </div>
-      <div class="carousel-item">
-        <img class="w-100 img-fluid" src="{{ url_for('static', filename='imgs/porsche.jpg') }}" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="w-100 img-fluid" src="{{ url_for('static', filename='imgs/LemonslimesNOTEXT.png') }}" alt="Third slide">
-      </div>
+        <div class="carousel-item">
+            <!--<img class="w-100 img-fluid" src="{{ url_for('static', filename='../static/css/images/porsche.jpg') }}" alt="Second slide">-->
+            <img class="w-100 img-fluid " src="../static/css/images/porsche.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <!--<img class="w-100 img-fluid" src="{{ url_for('static', filename='../static/css/images/LemonslimesNOTEXT.png') }}" alt="Third slide">-->
+            <img class="w-100 img-fluid " src="../static/css/images/LemonslimesNOTEXT.png" alt="Third slide">
+        </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -290,12 +238,11 @@
       <span class="sr-only">Next</span>
     </a>
   </div> 
-  
 
-  
 <!-- Carousel wrapper End -->
 
-  <!-- Jumbotron -->
+  <!-- Jumbotron First About Us -->
+
     <div class="jumbotron jumbotron-fluid" style="background-color: #929090;">
       <div class="container">
         <h1 class="display-4">About Us</h1>
@@ -307,11 +254,16 @@
       </div>
     </div>
 
+    <!-- End First About Us Jumbotron -->
+
+    <!-- Second Jumbotron -->
+
     <div class="jumbotron jumbotron-fluid jumbo-2">
       <div class="container">
-        <div class="jumbo-2-img">
-          <img class="w-100 img-fluid" src="{{ url_for('static', filename='imgs/LEMONS AND LIMES AUTO DEALER.png') }}" alt="">
-        </div>
+          <div class="jumbo-2-img">
+              <!--<img class="w-100 img-fluid" src="{{ url_for('static', filename='../static/css/images/LEMONS_AND_LIMES_AUTO_DEALER.png') }}" alt="">-->
+              <img class="w-100 img-fluid " src="../static/css/images/LEMONS_AND_LIMES_AUTO_DEALER.png" alt="Logo">
+          </div>
 
         <div>
           <h1>The used car dealership for students</h1>
@@ -319,58 +271,8 @@
 
       </div>
     </div>
-  <!-- Jumbotron -->
 
-
-<!-- Grid for text description 
-
-  <div class="shadow p-3 mb-5 bg-body rounded border-2" style="margin-top: 5%;">
-    <div class="p-5 text-center bg-image clearfix"
-    style="background-color:#313131;background-position: center;">
-
-
-        <div class="d-flex justify-content-center align-items-center">
-            <h5 class="heaer-2-text text-wrap text-lg-start" style="font-size: larger; font-weight: bold;color: #fbfbfb;">Our Story</h5>
-        </div>
-        
-    </div>
-  </div>
-
-  <div class="main-text">
-    <p>
-      We are a family owned used car dealership.
-    </p>
-  </div>
--->
-<!--
-<div class="container col-style overflow-hidden col-style">
-
-  
-
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-
-        <div class="align-items-start">
-      
-            <div class="col" style="color: #313131;">
-                <div class="p-3">
-                    <p>Text</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="align-items-start">
-            <div class="col">
-                
-                <div class="p-3">
-                    <p>Text col</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
--->
-  
+  <!-- Second Jumbotron End -->
 
    <!--------- Footer ------------------ -->
    <footer class="text-left text-lg-start fixed-bottom" id="footer-style">

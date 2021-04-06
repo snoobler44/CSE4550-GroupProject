@@ -1,8 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import yaml, os
+import MySQLdb.cursors
+import re
 
 app = Flask(__name__)
+
+app.secret_key = 'deez nuts'
 
 # DB configs
 db = yaml.load(open('db.yaml'))
@@ -18,14 +22,59 @@ def homepage():
     return render_template('homepage.html')
 
 #sign up
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return render_template('signup.html')
+    msg = ''
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        email = request.form['email']
+        password = request.form['password']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM customer_login2 WHERE email = %s', (email,))
+        customer_login2 = cursor.fetchone()
+        if customer_login2:
+            msg = 'Account already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        elif not email or not password:
+            msg = 'Please fill out the form!'
+        else:
+            cursor.execute('INSERT INTO customer_login2 VALUES (NULL, %s, %s)', (password, email))
+            mysql.connection.commit()
+            msg = "You have successfully registered!"
+    elif request.method == 'POST':
+        msg = 'Please fill the form!'
+    return render_template('signup.html', msg = msg)
 
 #login
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html')
+    msg = ''
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        email = request.form['email']
+        password = request.form['password']
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute('SELECT * FROM customer_login2 WHERE email = %s AND password = %s', (email, password,))
+        customer_login2 = cur.fetchone()
+        if customer_login2:
+            session['loggedin'] = True
+            session['id'] = customer_login2['id']
+            session['email'] = customer_login2['email']
+            return redirect(url_for('homepagelogged'))
+        else:
+            msg = 'Wrong email/password'
+    return render_template('login.html', msg=msg)
+
+@app.route('/homepagelogged')
+def homepagelogged():
+    return render_template('homepageLoggedIn.html')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('email', None)
+    return redirect(url_for('login'))
 
 #contact
 @app.route('/contact')
@@ -36,16 +85,6 @@ def contact():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-
-#test route for database display
-#@app.route('/users')
-#def users():
-#    cur = mysql.connection.cursor()
-#    resultValue = cur.execute("SELECT * FROM customer")
-#    if resultValue > 0:
-#        customerDetails = cur.fetchall()
-#        return render_template('users.html', customerDetails = customerDetails)
 
 
 if __name__ == '__main__':
