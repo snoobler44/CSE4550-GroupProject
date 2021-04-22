@@ -25,20 +25,24 @@ def homepage():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     msg = ''
-    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
-        email = request.form['email']
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+        username = request.form['username']
         password = request.form['password']
+        email = request.form['email']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM customer_login2 WHERE email = %s', (email,))
-        customer_login2 = cursor.fetchone()
-        if customer_login2:
+        cursor.execute('SELECT * FROM customer_login WHERE email = %s', (email,))
+        customer_login = cursor.fetchone()
+        if customer_login:
             msg = 'Account already exists!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'Invalid email address!'
-        elif not email or not password:
+        elif not re.match(r'[A-Za-z0-9]', username):
+            msg = 'Username must contain only characters & numbers!'
+        elif not username or not email or not password:
             msg = 'Please fill out the form!'
         else:
-            cursor.execute('INSERT INTO customer_login2 VALUES (NULL, %s, %s)', (password, email))
+            cursor.execute('INSERT INTO customer_login VALUES (NULL, %s, %s, %s)', (email, password, username))
+            cursor.execute('INSERT INTO customer (customer_photo) VALUES (default)')
             mysql.connection.commit()
             msg = "You have successfully registered!"
     elif request.method == 'POST':
@@ -49,21 +53,39 @@ def signup():
 @app.route('/login', methods=['GET','POST'])
 def login():
     msg = ''
-    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
-        email = request.form['email']
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
         password = request.form['password']
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute('SELECT * FROM customer_login2 WHERE email = %s AND password = %s', (email, password,))
-        customer_login2 = cur.fetchone()
-        if customer_login2:
+        cur.execute('SELECT * FROM customer_login WHERE username = %s AND password = %s', (username, password,))
+        customer_login = cur.fetchone()
+        if customer_login:
             session['loggedin'] = True
-            session['id'] = customer_login2['id']
-            session['email'] = customer_login2['email']
+            session['customer_id'] = customer_login['customer_id']
+            session['username'] = customer_login['username']
             return redirect(url_for('homepagelogged'))
         else:
-            msg = 'Wrong email/password'
+            msg = 'Wrong username/password'
     return render_template('login.html', msg=msg)
 
+@app.route('/employeelogin', methods=['GET', 'POST'])
+def employeelogin():
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute('SELECT * FROM employee_login WHERE username = %s and password = %s', (username, password,))
+        employeelogin = cur.fetchone()
+        if employeelogin:
+            session['loggedin'] = True
+            session['employee_id'] = employeelogin['employee_id']
+            session['username'] = employeelogin['username']
+            return redirect(url_for('homepagelogged'))
+        else: 
+            msg = "Wrong username/password"
+    return render_template('login.html', msg=msg)
+    
 @app.route('/homepagelogged')
 def homepagelogged():
     return render_template('homepageLoggedIn.html')
@@ -72,8 +94,8 @@ def homepagelogged():
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
-    session.pop('id', None)
-    session.pop('email', None)
+    session.pop('customer_id', None)
+    session.pop('username', None)
     return redirect(url_for('login'))
 
 #contact
